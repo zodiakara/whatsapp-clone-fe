@@ -1,0 +1,11 @@
+{
+  "dependencies": {
+    "@reduxjs/toolkit": "^1.9.2",
+    "react-redux": "^8.0.5",
+    "redux": "^4.2.1",
+    "redux-thunk": "^2.4.2"
+  },
+  "devDependencies": {
+    "@types/react-redux": "^7.1.25"
+  }
+}

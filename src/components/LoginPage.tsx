@@ -10,7 +10,6 @@ import Box from "@mui/material/Box";
 import Typography from "@mui/material/Typography";
 import Container from "@mui/material/Container";
 import { createTheme, ThemeProvider } from "@mui/material/styles";
-import img from "../assets/epiapp-light.png";
 
 const LoginPage = () => {
   const theme = createTheme();
@@ -44,7 +43,7 @@ const LoginPage = () => {
             }}
           >
             <img
-              src={img}
+              src="assets/epiapp-light.png"
               style={{
                 height: 30,
                 width: 30,

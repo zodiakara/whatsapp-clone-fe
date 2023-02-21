@@ -5,4 +5,7 @@
   padding: 0;
   margin: 0;
   overflow: hidden;
+  --header-color: #f0f2f5;
+  --dark-gray: #54656f;
+  --light-gray: #ced0d1;
 }

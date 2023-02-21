@@ -1,0 +1,49 @@
+.chatWindow {
+  border: 1px solid var(--light-gray);
+  height: 90vh;
+  width: 100;
+  background-color: #efeae2;
+  position: relative;
+}
+.chat-area {
+  padding-inline: 40px;
+}
+
+.chat-header,
+.chat-footer {
+  height: 60px;
+  background-color: var(--header-color);
+  font-size: 0.9rem;
+  width: 100%;
+}
+
+.chat-footer {
+  bottom: 0;
+  position: absolute;
+}
+
+.header-contact-avatar img {
+  width: 40px;
+  height: 40px;
+  object-fit: cover;
+  border-radius: 50%;
+}
+
+.header-icon,
+.footer-icon {
+  font-size: 1.3rem;
+  color: var(--dark-gray);
+}
+
+.chat-footer-left,
+.footer-message {
+  width: 100%;
+}
+
+.form,
+.form-group,
+.form-control {
+  border: none;
+  width: 100%;
+  margin: auto;
+}

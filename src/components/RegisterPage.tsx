@@ -11,7 +11,6 @@ import Typography from "@mui/material/Typography";
 import Container from "@mui/material/Container";
 import { createTheme, ThemeProvider } from "@mui/material/styles";
 import GoogleButton from "react-google-button";
-import img from "../assets/epiapp-light.png";
 
 const theme = createTheme();
 
@@ -45,7 +44,7 @@ const RegisterPage = () => {
             }}
           >
             <img
-              src={img}
+              src="/assets/epiapp-light.png"
               style={{
                 height: 30,
                 width: 30,

@@ -5,7 +5,7 @@ import "../mainPage.css";
 
 const mainPage = () => {
   return (
-    <Container className="mainContainer">
+    <div className="container">
       <Row>
         <Col xs={4}>
           <LeftSidebar />
@@ -14,7 +14,7 @@ const mainPage = () => {
           <ChatWindow />
         </Col>
       </Row>
-    </Container>
+    </div>
   );
 };
 

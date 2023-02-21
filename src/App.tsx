@@ -3,6 +3,7 @@ import LoginPage from "./components/LoginPage";
 import MainPage from "./components/mainPage/MainPage";
 import RegisterPage from "./components/RegisterPage";
 import { BrowserRouter, Routes, Route } from "react-router-dom";
+import "/node_modules/bootstrap/dist/css/bootstrap.min.css";
 
 function App() {
   return (

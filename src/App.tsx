@@ -1,6 +1,6 @@
 import "./App.css";
 import LoginPage from "./components/LoginPage";
-import MainPage from "./components/MainPage";
+import MainPage from "./components/mainPage/MainPage";
 import RegisterPage from "./components/RegisterPage";
 import { BrowserRouter, Routes, Route } from "react-router-dom";
 

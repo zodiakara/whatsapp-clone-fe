@@ -10,7 +10,7 @@ import Box from "@mui/material/Box";
 import Typography from "@mui/material/Typography";
 import Container from "@mui/material/Container";
 import { createTheme, ThemeProvider } from "@mui/material/styles";
-import WhatsAppIcon from "@mui/icons-material/WhatsApp";
+import img from "../assets/epiapp-light.png";
 
 const LoginPage = () => {
   const theme = createTheme();
@@ -43,7 +43,14 @@ const LoginPage = () => {
               alignItems: "center",
             }}
           >
-            <WhatsAppIcon sx={{ mr: 1, color: "#0dbf42" }}></WhatsAppIcon>
+            <img
+              src={img}
+              style={{
+                height: 30,
+                width: 30,
+              }}
+              alt="epiApp"
+            />
             <Typography component="h1" variant="h5">
               Sign up
             </Typography>

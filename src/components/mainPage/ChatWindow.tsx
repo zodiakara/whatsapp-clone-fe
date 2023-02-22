@@ -11,6 +11,7 @@ import { useEffect, useState } from "react";
 import { Message, User } from "./../../types/index.js";
 import { RootState } from "../../redux/store/store";
 import { io } from "socket.io-client";
+import { SET_USER_INFO } from "../../redux/actions";
 
 const socket = io(process.env.REACT_APP_BE_DEV_URL!, {
     transports: ["websocket"],
@@ -20,13 +21,21 @@ const ChatWindow = () => {
     const [text, setText] = useState("");
     // const [media, setMedia] = useState("");
 
+    const [clientId, setClientId] = useState("");
+
     const user = useSelector((state: RootState) => state.user.user);
 
     //****/
     const [chatHistory, setChatHistory] = useState<Message[]>([]);
+    
+    const dispatch = useDispatch();
+
+    
 
     const onSubmitHandler = (event: React.FormEvent<HTMLFormElement>) => {
         event.preventDefault();
+        resetFormValue();
+        
     };
 
     const onChangeHandler = (event: React.ChangeEvent<HTMLInputElement>) => {
@@ -37,11 +46,15 @@ const ChatWindow = () => {
         if (event.code === "Enter") {
             sendMessage();
         }
+        
     };
+    const resetFormValue = () => setText('');
+
 
     useEffect(() => {
-        socket.on("welcome", (welcomeMessage) => {
-            console.log(welcomeMessage);
+        socket.on("welcome", (clientId) => {
+            console.log("welcome",clientId);
+            setClientId(clientId);
         });
 
         socket.on("newMessage", (newMessage) => {
@@ -49,6 +62,11 @@ const ChatWindow = () => {
             setChatHistory([...chatHistory, newMessage]);
         });
     });
+
+
+    useEffect(() => {
+        dispatch({type: SET_USER_INFO, payload:{_id: clientId}})
+    }, [clientId])
 
     const sendMessage = () => {
         const newMessage: Message = {
@@ -62,7 +80,6 @@ const ChatWindow = () => {
         socket.emit("sendMessage", { message: newMessage });
         setChatHistory([...chatHistory, newMessage]);
     };
-
     return (
         <div className="container chatWindow p-0">
             <div className="d-flex flex-column">
@@ -87,16 +104,23 @@ const ChatWindow = () => {
                     </div>
                 </div>
                 <div className="chat-area">
-                    <div className="-message">
-                        <ListGroup>
+                    <div className="message-list">
                             {chatHistory.map((message, index) => (
-                                <ListGroup.Item key={index}>
-                                    <strong>{message.sender.name}</strong>
-                                    {message.content.text} at{" "}
-                                    {message.timestamp}
-                                </ListGroup.Item>
+                                <div key={index} className = {(clientId === message.sender._id ? "message myMessage" : "message userMessage" )}>
+                                    <div className="d-flex flex-column">
+                                        <div className="message-user">
+                                            <strong>{message.sender._id}</strong>
+                                        </div>
+                                        <div>
+                                            {message.content.text} 
+                                        </div>
+                                        <div className="d-flex justify-content-end message-hour">
+                                            {new Date().getHours()}:{new Date().getMinutes()}
+                                        </div>
+                                    </div>
+                                </div>
+                                
                             ))}
-                        </ListGroup>
                     </div>
                 </div>
                 <div className="chat-footer d-flex justify-content-between align-items-center px-4">
@@ -122,6 +146,7 @@ const ChatWindow = () => {
                                         onChange={onChangeHandler}
                                         value={text}
                                         onKeyDown={onKeyDownHandler}
+                                        
                                     />
                                 </Form.Group>
                             </Form>

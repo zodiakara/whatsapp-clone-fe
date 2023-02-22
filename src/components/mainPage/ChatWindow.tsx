@@ -4,7 +4,7 @@ import { BsEmojiLaughing } from "react-icons/bs";
 import { RiAttachment2 } from "react-icons/ri";
 import { FaMicrophone } from "react-icons/fa";
 import "./ChatWindow.css";
-import { Form } from "react-bootstrap";
+import { Form, ListGroup } from "react-bootstrap";
 import { useSelector } from "react-redux";
 import { useDispatch } from "react-redux";
 import { useEffect, useState } from "react";
@@ -17,11 +17,10 @@ const socket = io(process.env.REACT_APP_BE_DEV_URL!, {
 });
 
 const ChatWindow = () => {
-  const [message, setMessage] = useState<null | Message>(null);
   const [text, setText] = useState("");
   // const [media, setMedia] = useState("");
 
-  const userData = useSelector((state: RootState) => state.user.user);
+  const user = useSelector((state: RootState) => state.user.user);
 
   //****/
   const [chatHistory, setChatHistory] = useState<Message[]>([]);
@@ -36,44 +35,24 @@ const ChatWindow = () => {
 
   const onKeyDownHandler = (event: React.KeyboardEvent<HTMLInputElement>) => {
     if (event.code === "Enter") {
-      setMessage({
-        sender: userData.name,
-        content: {
-          text: text,
-          // media: media,
-        },
-        timestamp: new Date().getTime(),
-      });
       sendMessage();
     }
   };
-
-  useEffect(() => {
-    console.log(text);
-  }, [text]);
-
-  useEffect(() => {
-    console.log("userData: ", userData);
-    console.log("MESSAGE", message);
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [message]);
-
-  //****/
 
   useEffect(() => {
     socket.on("welcome", (welcomeMessage) => {
       console.log(welcomeMessage);
 
       socket.on("newMessage", (newMessage) => {
-        console.log(newMessage);
-        setChatHistory([...chatHistory, newMessage.message]);
+        console.log("newMessage:", newMessage);
+        setChatHistory([...chatHistory, newMessage]);
       });
     });
   });
 
   const sendMessage = () => {
     const newMessage: Message = {
-      sender: userData.name,
+      sender: user,
       content: {
         text: text,
         // media: media,
@@ -108,7 +87,16 @@ const ChatWindow = () => {
           </div>
         </div>
         <div className="chat-area">
-          <div className="-message">fldsfj</div>
+          <div className="-message">
+            <ListGroup>
+              {chatHistory.map((message, index) => (
+                <ListGroup.Item key={index}>
+                  <strong>{message.sender.name}</strong>
+                  {message.content.text} at {message.timestamp}
+                </ListGroup.Item>
+              ))}
+            </ListGroup>
+          </div>
         </div>
         <div className="chat-footer d-flex justify-content-between align-items-center px-4">
           <div className="d-flex align-items-center chat-footer-left">

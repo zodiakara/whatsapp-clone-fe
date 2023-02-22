@@ -1,15 +1,33 @@
 .chatWindow {
   border: 1px solid var(--light-gray);
   height: 90vh;
-  width: 100;
+  width: 100%;
   background-color: #efeae2;
   position: relative;
 }
+.chatWindow >div {
+  height: 100%;
+}
 .chat-area {
   padding-inline: 40px;
+  margin-bottom: 60px;
+  margin-top: 60px;
+  overflow: auto;
+  overflow-x: hidden;
+  display: flex;
+  flex-direction: column-reverse;
+  position: relative;
 }
 
-.chat-header,
+.chat-header{
+  position: absolute;
+  height: 60px;
+  background-color: var(--header-color);
+  font-size: 0.9rem;
+  width: 100%;
+  top: 0;
+  z-index: 9999;
+}
 .chat-footer {
   height: 60px;
   background-color: var(--header-color);
@@ -46,4 +64,58 @@
   border: none;
   width: 100%;
   margin: auto;
+}
+
+.message-list {
+  position: relative;
+  display: flex;
+  justify-content: end;
+  flex-wrap: wrap;
+  width: 100%;
+}
+
+.message {
+  margin-block: 7px;
+  position: relative;
+  display: flex;
+  width: 100%;
+  
+}
+
+.myMessage {
+  justify-content: end;
+  
+  
+}
+
+.myMessage > div {
+  
+  background-color: var(--message-green);
+  box-shadow: rgba(0, 0, 0, 0.16) 0px 1px 1px;
+}
+
+.userMessage > div{
+  background-color: var(--message-white);
+  box-shadow: rgba(0, 0, 0, 0.16) 0px 1px 1px;
+}
+
+.myMessage >div, .userMessage> div {
+  padding: 5px;
+  font-size: 0.8rem;
+  border-radius: 10px;
+  
+}
+
+.message-hour {
+  color: var(--dark-gray);
+  font-size: 0.7rem;
+}
+.message-user{
+  font-size: 0.7rem;
+
+}
+.myMessage  .message-user {
+  
+  display: flex;
+  justify-content: end;
 }

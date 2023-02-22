@@ -5,19 +5,26 @@ import { RiAttachment2 } from "react-icons/ri";
 import { FaMicrophone } from "react-icons/fa";
 import "./ChatWindow.css";
 import { Form } from "react-bootstrap";
+import { useSelector } from "react-redux";
+import { useDispatch } from "react-redux";
 import { useEffect, useState } from "react";
 import { Message, User } from "./../../types/index.js";
-import { useDispatch } from "react-redux";
-import { useSelector } from "react-redux";
 import { RootState } from "../../redux/store/store";
+import { io } from "socket.io-client";
+
+const socket = io(process.env.REACT_APP_BE_DEV_URL!, {
+  transports: ["websocket"],
+});
 
 const ChatWindow = () => {
   const [message, setMessage] = useState<null | Message>(null);
   const [text, setText] = useState("");
   // const [media, setMedia] = useState("");
-  const dispatch = useDispatch();
 
   const userData = useSelector((state: RootState) => state.user.user);
+
+  //****/
+  const [chatHistory, setChatHistory] = useState<Message[]>([]);
 
   const onSubmitHandler = (event: React.FormEvent<HTMLFormElement>) => {
     event.preventDefault();
@@ -37,6 +44,7 @@ const ChatWindow = () => {
         },
         timestamp: new Date().getTime(),
       });
+      sendMessage();
     }
   };
 
@@ -49,6 +57,32 @@ const ChatWindow = () => {
     console.log("MESSAGE", message);
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [message]);
+
+  //****/
+
+  useEffect(() => {
+    socket.on("welcome", (welcomeMessage) => {
+      console.log(welcomeMessage);
+
+      socket.on("newMessage", (newMessage) => {
+        console.log(newMessage);
+        setChatHistory([...chatHistory, newMessage.message]);
+      });
+    });
+  });
+
+  const sendMessage = () => {
+    const newMessage: Message = {
+      sender: userData.name,
+      content: {
+        text: text,
+        // media: media,
+      },
+      timestamp: new Date().getTime(),
+    };
+    socket.emit("sendMessage", { message: newMessage });
+    setChatHistory([...chatHistory, newMessage]);
+  };
 
   return (
     <div className="container chatWindow p-0">
@@ -73,7 +107,9 @@ const ChatWindow = () => {
             </div>
           </div>
         </div>
-        <div className="chat-area"></div>
+        <div className="chat-area">
+          <div className="-message">fldsfj</div>
+        </div>
         <div className="chat-footer d-flex justify-content-between align-items-center px-4">
           <div className="d-flex align-items-center chat-footer-left">
             <div className="d-flex align-items-center me-3">

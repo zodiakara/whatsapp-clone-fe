@@ -1,18 +1,47 @@
 import * as React from "react";
+import { useState } from "react";
 import Button from "@mui/material/Button";
 import CssBaseline from "@mui/material/CssBaseline";
 import TextField from "@mui/material/TextField";
 import FormControlLabel from "@mui/material/FormControlLabel";
 import Checkbox from "@mui/material/Checkbox";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import Grid from "@mui/material/Grid";
 import Box from "@mui/material/Box";
 import Typography from "@mui/material/Typography";
 import Container from "@mui/material/Container";
 import { createTheme, ThemeProvider } from "@mui/material/styles";
+import { useDispatch } from "react-redux";
+import { LoginUser } from "../types";
+import { loginUserAction } from "../redux/actions";
 
 const LoginPage = () => {
   const theme = createTheme();
+  const dispatch = useDispatch();
+  const [email, setEmail] = useState("");
+  const [password, setPassword] = useState("");
+  const navigate = useNavigate();
+
+  const LogUser = () => {
+    return new Promise((resolve, reject) => {
+      const loggedUser: LoginUser = {
+        email: email,
+        password: password,
+      };
+      loginUserAction(loggedUser)
+        .then(() => {
+          // dispatch(dispatchObj);
+          // resolve("Dispatched");
+          //navigate user to login page after registration
+          navigate("/");
+        })
+        .catch((err) => {
+          //there was an error
+          console.log(err);
+          reject(err);
+        });
+    });
+  };
 
   const handleSubmit = (event: React.FormEvent<HTMLFormElement>) => {
     event.preventDefault();
@@ -21,6 +50,7 @@ const LoginPage = () => {
       email: data.get("email"),
       password: data.get("password"),
     });
+    LogUser();
   };
 
   return (
@@ -70,6 +100,9 @@ const LoginPage = () => {
               name="email"
               autoComplete="email"
               autoFocus
+              onChange={(e) => {
+                setEmail(e.target.value);
+              }}
             />
             <TextField
               margin="normal"
@@ -80,6 +113,9 @@ const LoginPage = () => {
               type="password"
               id="password"
               autoComplete="current-password"
+              onChange={(e) => {
+                setPassword(e.target.value);
+              }}
             />
             <FormControlLabel
               control={<Checkbox value="remember" color="primary" />}

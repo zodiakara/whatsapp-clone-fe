@@ -30,18 +30,24 @@ const RegisterPage = () => {
         token: String;
     }
 
-    const registerUser = async () => {
-        try {
+    const registerUser = () => {
+        return new Promise((resolve, reject) => {
             const registeredUser: RegisterUser = {
                 email: email,
                 name: username,
             };
             console.log("registered user", registeredUser);
-            const dispatchObj = await getTokenAction(registeredUser);
-            dispatch(dispatchObj);
-        } catch (error) {
-            console.log(error);
-        }
+            getTokenAction(registeredUser)
+                .then((dispatchObj) => {
+                    dispatch(dispatchObj);
+                    resolve("Dispatched");
+                })
+                .catch((err) => {
+                    //there was an error
+                    console.log(err);
+                    reject(err);
+                });
+        });
     };
 
     const handleSubmit = (event: React.FormEvent<HTMLFormElement>) => {

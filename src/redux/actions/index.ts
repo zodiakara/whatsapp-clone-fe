@@ -90,6 +90,8 @@ export function getTokenAction(
                     payload: registeredUser,
                 };
                 resolve(action);
+            } else {
+                reject(new Error("Something went wrong"));
             }
         } catch (error) {
             console.log(error);

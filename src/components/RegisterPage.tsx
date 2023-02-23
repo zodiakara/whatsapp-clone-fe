@@ -21,10 +21,10 @@ const theme = createTheme();
 
 const RegisterPage = () => {
     const dispatch = useDispatch();
-    const navigate = useNavigate();
     const [email, setEmail] = useState("");
     const [username, setUsername] = useState("");
     const [password, setPassword] = useState("");
+    const navigate = useNavigate();
 
     interface Token {
         token: String;
@@ -39,8 +39,10 @@ const RegisterPage = () => {
             console.log("registered user", registeredUser);
             getTokenAction(registeredUser)
                 .then((dispatchObj) => {
-                    dispatch(dispatchObj);
-                    resolve("Dispatched");
+                    // dispatch(dispatchObj);
+                    // resolve("Dispatched");
+                    //navigate user to login page after registration
+                    navigate("/login");
                 })
                 .catch((err) => {
                     //there was an error

@@ -39,34 +39,6 @@ export const setUserAction = (currentUser: User) => {
     };
 };
 
-// export const getTokenAction = (registeredUser: RegisterUser) => {
-//     return async () => {
-//         console.log("action fired");
-//         const options = {
-//             method: "POST",
-//             body: JSON.stringify(registeredUser),
-//             headers: {
-//                 "Content-Type": "application/json",
-//             },
-//         };
-//         console.log(options);
-//         try {
-//             const response = await fetch(`${BE_URL}+"users/account"`, options);
-//             if (response.ok) {
-//                 console.log("GET TOKEN res:", response);
-//                 const action: AnyAction = {
-//                     type: SET_USER_INFO,
-//                     payload: registeredUser,
-//                 };
-//                 return action;
-//             }
-//         } catch (error) {
-//             console.log(error);
-//             return error;
-//         }
-//     };
-// };
-
 //rewritten fucntion
 export function getTokenAction(
     registeredUser: RegisterUser
@@ -85,6 +57,7 @@ export function getTokenAction(
             const response = await fetch(`${BE_URL}+"users/account"`, options);
             if (response.ok) {
                 console.log("GET TOKEN res:", response);
+                const data = await response.json();
                 const action: AnyAction = {
                     type: SET_USER_INFO,
                     payload: registeredUser,

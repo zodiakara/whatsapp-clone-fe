@@ -4,24 +4,55 @@ import CssBaseline from "@mui/material/CssBaseline";
 import TextField from "@mui/material/TextField";
 import FormControlLabel from "@mui/material/FormControlLabel";
 import Checkbox from "@mui/material/Checkbox";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import Grid from "@mui/material/Grid";
 import Box from "@mui/material/Box";
 import Typography from "@mui/material/Typography";
 import Container from "@mui/material/Container";
 import { createTheme, ThemeProvider } from "@mui/material/styles";
 import GoogleButton from "react-google-button";
+import { useDispatch } from "react-redux";
+import { useState } from "react";
+import { RegisterUser } from "../types";
+import { getTokenAction } from "../redux/actions";
+import { AnyAction } from "@reduxjs/toolkit";
 
 const theme = createTheme();
 
 const RegisterPage = () => {
+  const dispatch = useDispatch();
+  const navigate = useNavigate();
+  const [email, setEmail] = useState("");
+  const [username, setUsername] = useState("");
+  const [password, setPassword] = useState("");
+
+  interface Token {
+    token: String;
+  }
+
+  const registerUser = async () => {
+    try {
+      const registeredUser: RegisterUser = {
+        email: email,
+        name: username,
+      };
+      console.log("registered user", registeredUser);
+      dispatch(getTokenAction(registeredUser));
+    } catch (error) {
+      console.log(error);
+    }
+  };
+
   const handleSubmit = (event: React.FormEvent<HTMLFormElement>) => {
     event.preventDefault();
-    const data = new FormData(event.currentTarget);
-    console.log({
-      email: data.get("email"),
-      password: data.get("password"),
-    });
+    if (email && password && username) {
+      console.log({
+        email,
+        password,
+        username,
+      });
+      registerUser();
+    }
   };
 
   return (
@@ -72,6 +103,9 @@ const RegisterPage = () => {
                   id="firstName"
                   label="First Name"
                   autoFocus
+                  onChange={(e) => {
+                    setUsername(e.target.value);
+                  }}
                 />
               </Grid>
               <Grid item xs={12} sm={6}>
@@ -92,6 +126,9 @@ const RegisterPage = () => {
                   label="Email Address"
                   name="email"
                   autoComplete="email"
+                  onChange={(e) => {
+                    setEmail(e.target.value);
+                  }}
                 />
               </Grid>
               <Grid item xs={12}>
@@ -103,6 +140,9 @@ const RegisterPage = () => {
                   type="password"
                   id="password"
                   autoComplete="new-password"
+                  onChange={(e) => {
+                    setPassword(e.target.value);
+                  }}
                 />
               </Grid>
             </Grid>

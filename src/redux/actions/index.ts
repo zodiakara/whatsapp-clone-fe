@@ -1,33 +1,74 @@
+import { DocumentRegistry } from "typescript";
+import { RegisterUser } from "../../types";
+import { AnyAction } from "redux";
+
 export const SET_USER_INFO = "SET_USER_INFO";
 export const SET_CHATS = "SET_CHATS";
 export const SET_ACTIVE_CHAT = "SET_ACTIVE_CHAT";
 export const SET_HISTORY = "SET_HISTORY";
 export const NEW_MESSAGE = "NEW_MESSAGE";
+export const GET_ACCESS_TOKEN = "GET_ACCESS_TOKEN";
+
+const BE_URL = process.env.REACT_APP_BE_DEV_URL;
 
 interface User {
-  _id: string;
-  name: string;
-  email: string;
-  avatar?: string;
+    _id: string;
+    name: string;
+    email: string;
+    avatar?: string;
 }
 
 interface Chat {
-  members: User[];
-  messages: Message[];
+    members: User[];
+    messages: Message[];
 }
 
 interface Message {
-  sender: User;
-  content: {
-    text?: string;
-    media?: string;
-  };
-  timestamp: number;
+    sender: User;
+    content: {
+        text?: string;
+        media?: string;
+    };
+    timestamp: number;
 }
 
 export const setUserAction = (currentUser: User) => {
-  return {
-    type: SET_USER_INFO,
-    payload: currentUser,
-  };
+    return {
+        type: SET_USER_INFO,
+        payload: currentUser,
+    };
 };
+
+//rewritten fucntion
+export function getTokenAction(
+    registeredUser: RegisterUser
+): Promise<AnyAction> {
+    return new Promise(async (resolve, reject) => {
+        console.log("action fired");
+        const options = {
+            method: "POST",
+            body: JSON.stringify(registeredUser),
+            headers: {
+                "Content-Type": "application/json",
+            },
+        };
+        console.log(options);
+        try {
+            const response = await fetch(`${BE_URL}+"users/account"`, options);
+            if (response.ok) {
+                console.log("GET TOKEN res:", response);
+                const data = await response.json();
+                const action: AnyAction = {
+                    type: SET_USER_INFO,
+                    payload: registeredUser,
+                };
+                resolve(action);
+            } else {
+                reject(new Error("Something went wrong"));
+            }
+        } catch (error) {
+            console.log(error);
+            reject(error);
+        }
+    });
+}

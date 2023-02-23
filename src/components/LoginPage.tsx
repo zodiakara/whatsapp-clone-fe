@@ -29,7 +29,9 @@ const LoginPage = () => {
         password: password,
       };
       loginUserAction(loggedUser)
-        .then(() => {
+        .then((action) => {
+          dispatch(action);
+
           // dispatch(dispatchObj);
           // resolve("Dispatched");
           //navigate user to login page after registration

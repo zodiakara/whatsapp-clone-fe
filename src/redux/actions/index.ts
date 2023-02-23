@@ -1,6 +1,8 @@
 import { DocumentRegistry } from "typescript";
 import { LoginUser, RegisterUser } from "../../types";
 import { AnyAction } from "redux";
+import { useDispatch, useSelector } from "react-redux";
+import { PayloadAction } from "@reduxjs/toolkit";
 
 export const SET_USER_INFO = "SET_USER_INFO";
 export const SET_CHATS = "SET_CHATS";
@@ -61,11 +63,11 @@ export function getTokenAction(
         const { accesstoken } = data;
         console.log(accesstoken);
         // this one registers user and gives token back
-        const action: AnyAction = {
-          type: SET_USER_INFO,
-          payload: registeredUser,
-        };
-        resolve(action);
+        // const action: AnyAction = {
+        //   type: SET_USER_INFO,
+        //   payload: registeredUser,
+        // };
+        // resolve(action);
       } else {
         reject(new Error("Something went wrong"));
       }
@@ -91,7 +93,8 @@ export function loginUserAction(loggedUser: LoginUser): Promise<AnyAction> {
       if (response.ok) {
         const data = await response.json();
         console.log("GET TOKEN res:", data);
-        const accessToken = await data.accessToken;
+        const accessToken = data.accessToken;
+        const refreshToken = data.refreshToken;
 
         if (accessToken) {
           const options = {
@@ -106,17 +109,30 @@ export function loginUserAction(loggedUser: LoginUser): Promise<AnyAction> {
             if (response.ok) {
               const user = await response.json();
               console.log(user);
+              if (user) {
+                localStorage.setItem("accessToken", accessToken);
+                localStorage.setItem("refreshToken", refreshToken);
+                const newUser: User = {
+                  _id: user._id,
+                  name: user.name,
+                  email: user.email,
+                  avatar: user.avatar,
+                };
+
+                // const action: AnyAction = setUserAction(newUser);
+                const action: AnyAction = {
+                  type: SET_USER_INFO,
+                  payload: newUser,
+                };
+
+                resolve(action);
+              }
             }
           } catch (error) {
             console.log(error);
           }
         }
         //this one registers user and gives token back
-        // const action: AnyAction = {
-        //     type: SET_USER_INFO,
-        //     payload: registeredUser,
-        // };
-        // resolve(action);
       } else {
         reject(new Error("Something went wrong"));
       }

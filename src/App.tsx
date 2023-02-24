@@ -5,6 +5,7 @@ import RegisterPage from "./components/RegisterPage";
 import { BrowserRouter, Routes, Route } from "react-router-dom";
 import { useEffect, useState } from "react";
 import "/node_modules/bootstrap/dist/css/bootstrap.min.css";
+import "react-notifications/lib/notifications.css";
 
 function App() {
     const [loggedIn, setLoggedIn] = useState(false);

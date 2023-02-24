@@ -138,3 +138,34 @@
 .singleUser.active {
     background-color: rgb(240, 242, 245);
 }
+
+/* Use a media query to add a breakpoint at 800px: */
+@media screen and (max-width: 1070px) {
+  .leftSidebarBtn {
+    font-size: 1rem;
+    margin: 0;
+  }
+  .mainContainer {
+    padding: 2em;
+  }
+  .singleUserMsg {
+    flex-shrink: 1;
+  }
+}
+@media screen and (max-width: 915px) {
+  .left,
+  .main,
+  .right {
+    width: 100%; /* The width is 100%, when the viewport is 800px or smaller */
+  }
+  .mainContainer {
+    padding: 0;
+    padding-top: 2em;
+  }
+  .leftSidebarBtn {
+    font-size: 1rem;
+  }
+  .leftSideHide {
+    display: none;
+  }
+}

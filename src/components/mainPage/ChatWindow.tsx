@@ -27,15 +27,12 @@ const ChatWindow = () => {
 
     //****/
     const [chatHistory, setChatHistory] = useState<Message[]>([]);
-    
-    const dispatch = useDispatch();
 
-    
+    const dispatch = useDispatch();
 
     const onSubmitHandler = (event: React.FormEvent<HTMLFormElement>) => {
         event.preventDefault();
         resetFormValue();
-        
     };
 
     const onChangeHandler = (event: React.ChangeEvent<HTMLInputElement>) => {
@@ -46,14 +43,12 @@ const ChatWindow = () => {
         if (event.code === "Enter") {
             sendMessage();
         }
-        
     };
-    const resetFormValue = () => setText('');
-
+    const resetFormValue = () => setText("");
 
     useEffect(() => {
         socket.on("welcome", (clientId) => {
-            console.log("welcome",clientId);
+            console.log("welcome", clientId);
             setClientId(clientId);
         });
 
@@ -63,10 +58,9 @@ const ChatWindow = () => {
         });
     });
 
-
     useEffect(() => {
-        dispatch({type: SET_USER_INFO, payload:{_id: clientId}})
-    }, [clientId])
+        dispatch({ type: SET_USER_INFO, payload: { _id: clientId } });
+    }, [clientId]);
 
     const sendMessage = () => {
         const newMessage: Message = {
@@ -92,7 +86,9 @@ const ChatWindow = () => {
                                 className="me-3"
                             />
                         </div>
-                        <div className="header-contact-name">Lorem Ipsum</div>
+                        <div className="header-contact-name">
+                            No user selected
+                        </div>
                     </div>
                     <div className="header-options d-flex align-items-center">
                         <div className="header-icon me-4">
@@ -105,22 +101,27 @@ const ChatWindow = () => {
                 </div>
                 <div className="chat-area">
                     <div className="message-list">
-                            {chatHistory.map((message, index) => (
-                                <div key={index} className = {(clientId === message.sender._id ? "message myMessage" : "message userMessage" )}>
-                                    <div className="d-flex flex-column">
-                                        <div className="message-user">
-                                            <strong>{message.sender._id}</strong>
-                                        </div>
-                                        <div>
-                                            {message.content.text} 
-                                        </div>
-                                        <div className="d-flex justify-content-end message-hour">
-                                            {new Date().getHours()}:{new Date().getMinutes()}
-                                        </div>
+                        {chatHistory.map((message, index) => (
+                            <div
+                                key={index}
+                                className={
+                                    clientId === message.sender._id
+                                        ? "message myMessage"
+                                        : "message userMessage"
+                                }
+                            >
+                                <div className="d-flex flex-column">
+                                    <div className="message-user">
+                                        <strong>{message.sender._id}</strong>
+                                    </div>
+                                    <div>{message.content.text}</div>
+                                    <div className="d-flex justify-content-end message-hour">
+                                        {new Date().getHours()}:
+                                        {new Date().getMinutes()}
                                     </div>
                                 </div>
-                                
-                            ))}
+                            </div>
+                        ))}
                     </div>
                 </div>
                 <div className="chat-footer d-flex justify-content-between align-items-center px-4">
@@ -146,7 +147,7 @@ const ChatWindow = () => {
                                         onChange={onChangeHandler}
                                         value={text}
                                         onKeyDown={onKeyDownHandler}
-                                        
+                                        disabled //todo: enable when a user is selected
                                     />
                                 </Form.Group>
                             </Form>

@@ -7,6 +7,7 @@ import { useEffect, useState } from "react";
 import "/node_modules/bootstrap/dist/css/bootstrap.min.css";
 
 function App() {
+    const [loggedIn, setLoggedIn] = useState(false);
     return (
         <BrowserRouter>
             <Routes>

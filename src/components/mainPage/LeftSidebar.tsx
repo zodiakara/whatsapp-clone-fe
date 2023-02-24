@@ -52,13 +52,13 @@ const LeftSidebar = () => {
         </div>
 
         <div className="justify-between items-center">
-          <button className="leftSidebarBtn mx-2 hover:bg-[#3c454c]">
+          <button className="leftSidebarBtn leftSideHide mx-2 hover:bg-[#3c454c]">
             <MdPeopleAlt />
           </button>
-          <button className="leftSidebarBtn mx-2 hover:bg-[#3c454c]">
+          <button className="leftSidebarBtn leftSideHide mx-2 hover:bg-[#3c454c]">
             <TbCircleDashed />
           </button>
-          <button className="leftSidebarBtn mx-2 hover:bg-[#3c454c]">
+          <button className="leftSidebarBtn leftSideHide mx-2 hover:bg-[#3c454c]">
             <BsFillChatLeftTextFill />
           </button>
           <button className="leftSidebarBtn mx-2 hover:bg-[#3c454c]">

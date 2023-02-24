@@ -1,20 +1,39 @@
 .mainContainer {
-  background-color: #f0f2f5;
-  margin: 2em;
+  background-color: #e0e0dd;
+  align-content: center;
+  padding: 2em;
+  padding-left: 5em;
+  padding-right: 5em;
 }
 .leftSidebar {
   background-color: #ffffff;
+  height: 90vh;
+  width: 100%;
+  position: relative;
+  border-top: 1px solid var(--light-gray);
+  border-bottom: 1px solid var(--light-gray);
+  border-left: 1px solid var(--light-gray);
 }
-
+.editProfileBar {
+  background-color: #f0f2f5;
+  height: 90vh;
+  width: 100%;
+  position: relative;
+  border-bottom: 1px solid var(--light-gray);
+  border-left: 1px solid var(--light-gray);
+}
 .profileSetup {
   background-color: #f0f2f5;
   display: flex;
   align-items: center;
   justify-content: space-between;
+
+  height: 60px;
 }
 .leftSidebarBtn {
   cursor: pointer;
-
+  font-size: 1.3rem;
+  color: var(--dark-gray);
   border-radius: 10%;
   border: none;
   align-items: center;
@@ -23,9 +42,17 @@
 .leftSidebarBtn:hover {
   background-color: #cacaca;
 }
+.profileAvatar {
+  display: flex;
+  align-items: center;
+}
 .inputField {
   display: flex;
   justify-content: space-between;
+  padding-left: 0.5em;
+  padding-top: 0.5em;
+  padding-bottom: 0.5em;
+  border-bottom: 0.25px solid #f0f2f5;
 }
 .searchChatInput {
   border-radius: 10px;
@@ -39,25 +66,72 @@
   border: none;
   color: #8796a1;
   background-color: #ffffff;
+  font-size: 1.3rem;
+  cursor: pointer;
 }
 .SingleUser-Time {
   font-weight: lighter;
   color: grey;
+  padding-right: 0.75em;
 }
-.UserName {
-  font-weight: bold;
+.singleUserName {
+  font-weight: 600;
+  margin: none;
+}
+.singleUserMsg {
+  font-weight: 200;
+  color: grey;
+  font-size: 0.85em;
+  text-overflow: ellipsis;
+  overflow: hidden;
+  white-space: nowrap;
+  margin-bottom: 0.25em;
 }
 .arrowIcon {
   color: grey;
   opacity: 0%;
+  margin-right: 0.25em;
 }
 .singleUser {
-  border-bottom: 5px, lightgray, solid;
+  box-shadow: rgba(0, 0, 0, 0.1) 0px 0.3px 0.5px;
 }
 .singleUser:hover .arrowIcon {
   opacity: 100%;
   cursor: pointer;
 }
 .singleUser:hover {
+  background-color: rgb(240, 242, 245);
+}
+
+.profileEditBg {
+  background-color: #008069;
+  height: 6em;
+  color: white;
+  display: flex;
+  align-items: flex-end;
+  padding-left: 0.75em;
+}
+.profileEditAvatar {
+  display: flex;
+  justify-content: center;
   background-color: #f0f2f5;
+}
+.profileEditNameContainer {
+  background-color: #ffffff;
+  padding-top: 0.5em;
+  box-shadow: rgba(0.1, 0.1, 0, 0.1) 0px 1px 1px;
+}
+.profileEditName {
+  color: #008069;
+  padding-left: 1em;
+  margin-top: 0.5em;
+}
+.profileWriteName {
+  padding: 1em;
+  display: flex;
+  justify-content: space-between;
+}
+.editPageBtn {
+  border: none;
+  background: none;
 }

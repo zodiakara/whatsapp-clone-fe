@@ -17,7 +17,8 @@ import {
     NotificationManager,
 } from "react-notifications";
 
-const socket = io(process.env.REACT_APP_BE_DEV_URL!, {
+const BE_URL = process.env.REACT_APP_BE_DEV_URL || process.env.REACT_APP_PROD_URL
+const socket = io(BE_URL!, {
     transports: ["websocket"],
 });
 

@@ -19,9 +19,11 @@ const LeftSidebar = (props: any) => {
 
     const user = useSelector((state: RootState) => state.user.user);
 
+    const BE_URL = process.env.REACT_APP_BE_DEV_URL || process.env.REACT_APP_PROD_URL
+
     async function fetchUsers(): Promise<any> {
         const response = await fetch(
-            `${process.env.REACT_APP_BE_DEV_URL}/users`,
+            `${BE_URL}/users`,
             {
                 method: "GET",
                 headers: {
@@ -49,7 +51,7 @@ const LeftSidebar = (props: any) => {
 
     async function fetchChatHistory(id: any) {
         const response = await fetch(
-            `${process.env.REACT_APP_BE_DEV_URL}/messages/user/${id}`,
+            `${BE_URL}/messages/user/${id}`,
             {
                 method: "GET",
                 headers: {

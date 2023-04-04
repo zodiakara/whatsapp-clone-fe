@@ -22,6 +22,7 @@ const MainPage = () => {
 
     const navigate = useNavigate();
     const dispatch = useDispatch();
+    const BE_URL= process.env.REACT_APP_BE_DEV_URL || process.env.REACT_APP_PROD_URL
     //get redux state
     //SET_USER_INFO
     const user = useSelector((state: RootState) => state.user.user);
@@ -39,7 +40,7 @@ const MainPage = () => {
             if (!user) {
                 //fetch user info
                 const response = await fetch(
-                    `${process.env.REACT_APP_BE_DEV_URL}/users/me`,
+                    `${BE_URL}/users/me`,
                     {
                         method: "GET",
                         headers: {
@@ -66,7 +67,7 @@ const MainPage = () => {
                         if (refreshToken) {
                             //refresh token is available
                             const response2 = await fetch(
-                                `${process.env.REACT_APP_BE_DEV_URL}/users/session/refresh`,
+                                `${BE_URL}/users/session/refresh`,
                                 {
                                     method: "POST",
                                     headers: {
@@ -95,7 +96,7 @@ const MainPage = () => {
                                 );
                                 //fetch user info
                                 const response = await fetch(
-                                    `${process.env.REACT_APP_BE_DEV_URL}/users/me`,
+                                    `${BE_URL}/users/me`,
                                     {
                                         method: "GET",
                                         headers: {

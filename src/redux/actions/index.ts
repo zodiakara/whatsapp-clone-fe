@@ -11,7 +11,7 @@ export const SET_HISTORY = "SET_HISTORY";
 export const NEW_MESSAGE = "NEW_MESSAGE";
 export const GET_ACCESS_TOKEN = "GET_ACCESS_TOKEN";
 
-const BE_URL = process.env.REACT_APP_BE_DEV_URL;
+const BE_URL = process.env.REACT_APP_BE_DEV_URL || process.env.REACT_APP_BE_PROD_URL;
 
 interface User {
   _id: string;

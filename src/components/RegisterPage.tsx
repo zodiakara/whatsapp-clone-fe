@@ -39,7 +39,7 @@ const RegisterPage = () => {
             };
             console.log("registered user", registeredUser);
             getTokenAction(registeredUser)
-                .then((dispatchObj) => {
+                .then((action) => {
                     // dispatch(dispatchObj);
                     // resolve("Dispatched");
                     //navigate user to login page after registration

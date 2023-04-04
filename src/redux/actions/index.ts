@@ -47,6 +47,8 @@ export function getTokenAction(
 ): Promise<AnyAction> {
   return new Promise(async (resolve, reject) => {
     console.log("action fired");
+    const email = registeredUser.email
+    console.log("registereduser:", registeredUser)
     const options = {
       method: "POST",
       body: JSON.stringify(registeredUser),
@@ -54,20 +56,19 @@ export function getTokenAction(
         "Content-Type": "application/json",
       },
     };
-    console.log(options);
+    console.log("options",options);
     try {
       const response = await fetch(`${BE_URL}/users/account`, options);
       if (response.ok) {
         console.log("GET TOKEN res:", response);
         const data = await response.json();
-        const { accesstoken } = data;
-        console.log(accesstoken);
+        // console.log(data)
         // this one registers user and gives token back
-        // const action: AnyAction = {
-        //   type: SET_USER_INFO,
-        //   payload: registeredUser,
-        // };
-        // resolve(action);
+        const action: AnyAction = {
+          type: SET_USER_INFO,
+          payload: registeredUser,
+        };
+        resolve(action);
       } else {
         reject(new Error("Something went wrong"));
       }

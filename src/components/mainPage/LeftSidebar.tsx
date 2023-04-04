@@ -19,7 +19,7 @@ const LeftSidebar = (props: any) => {
 
     const user = useSelector((state: RootState) => state.user.user);
 
-    const BE_URL = process.env.REACT_APP_BE_DEV_URL || process.env.REACT_APP_PROD_URL
+    const BE_URL = process.env.REACT_APP_BE_DEV_URL || process.env.REACT_APP_BE_PROD_URL
 
     async function fetchUsers(): Promise<any> {
         const response = await fetch(

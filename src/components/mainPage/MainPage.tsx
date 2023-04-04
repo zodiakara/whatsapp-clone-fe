@@ -22,7 +22,7 @@ const MainPage = () => {
 
     const navigate = useNavigate();
     const dispatch = useDispatch();
-    const BE_URL= process.env.REACT_APP_BE_DEV_URL || process.env.REACT_APP_PROD_URL
+    const BE_URL= process.env.REACT_APP_BE_DEV_URL || process.env.REACT_APP_BE_PROD_URL
     //get redux state
     //SET_USER_INFO
     const user = useSelector((state: RootState) => state.user.user);

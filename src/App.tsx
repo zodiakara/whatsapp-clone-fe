@@ -1,4 +1,3 @@
-import "./App.css";
 import LoginPage from "./components/LoginPage";
 import MainPage from "./components/mainPage/MainPage";
 import RegisterPage from "./components/RegisterPage";
@@ -8,16 +7,16 @@ import "/node_modules/bootstrap/dist/css/bootstrap.min.css";
 import "react-notifications/lib/notifications.css";
 
 function App() {
-    const [loggedIn, setLoggedIn] = useState(false);
-    return (
-        <BrowserRouter>
-            <Routes>
-                <Route path="/" element={<MainPage />} />
-                <Route path="/register" element={<RegisterPage />} />
-                <Route path="/login" element={<LoginPage />} />
-            </Routes>
-        </BrowserRouter>
-    );
+  const [loggedIn, setLoggedIn] = useState(false);
+  return (
+    <BrowserRouter>
+      <Routes>
+        <Route path="/" element={<MainPage />} />
+        <Route path="/register" element={<RegisterPage />} />
+        <Route path="/login" element={<LoginPage />} />
+      </Routes>
+    </BrowserRouter>
+  );
 }
 
 export default App;

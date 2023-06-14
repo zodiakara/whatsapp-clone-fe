@@ -1,0 +1,18 @@
+.registerContainer {
+  background-color: #efefef;
+  display: flex;
+  align-items: center;
+  flex-direction: column;
+  justify-content: center;
+  min-height: 100vh;
+}
+.registerBox {
+  display: flex;
+  align-items: center;
+  flex-direction: column;
+  justify-content: center;
+  background-color: white;
+  flex-grow: 1;
+  margin: 2rem;
+  border-radius: 20px;
+}
